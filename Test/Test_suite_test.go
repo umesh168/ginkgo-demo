@@ -1,6 +1,7 @@
 package Test_test
 
 import (
+	"demo/rules"
 	"demo/structures"
 	"testing"
 
@@ -23,6 +24,22 @@ var _ = Describe("Employee", func() {
 			}
 			response := employee.FirstNameData()
 			Expect(response).To(Equal("Les Miserables"))
+		})
+	})
+
+})
+
+var _ = Describe("Person", func() {
+	Context("check Person structure validation", func() {
+		It("can validate Person Struct", func() {
+			employee := rules.Person{
+				Name:                "Umesh Sonawane",
+				Email:               "usonawane@flexera.com",
+				Age:                 32,
+				DriverLicenseNumber: "121212121212",
+			}
+			response := employee.ValidatePerson()
+			Expect(response).To(BeNil())
 		})
 	})
 
