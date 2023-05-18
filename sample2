@@ -1,0 +1,76 @@
+Implementation Description:
+
+I have developed a feature in Golang that generates custom, well-formatted HTML reports. These reports are generated from Ginkgo JSON reports and are displayed in a tabular form. Each suite has its own table, which provides detailed information about each test case, including the pass/fail status, description, and error message if the test failed.
+
+Additionally, I have implemented a feature to create a report history. The report history table displays all the previous reports, and when a row is clicked, it redirects the user to the corresponding report page for more detailed information.
+
+The code consists of the following files:
+
+1. index-template.html: This HTML template file defines the structure of the index page, which displays the report history table.
+
+2. report-template.html: This HTML template file defines the structure of the report page, which displays the detailed information for a specific report.
+
+3. index.go: This Go file contains the implementation of the GenerateIndex function. This function populates the index-template.html file with the report history data and generates the index page.
+
+4. report.go: This Go file contains the implementation of the generate function. This function takes the Ginkgo JSON report as input, processes it, populates the report-template.html file with the necessary data, and generates the report page.
+
+The generated reports and index page are uploaded to an S3 bucket, allowing people to access and view the reports at any time.
+
+To use this implementation, follow these steps:
+
+1. Ensure that you have Golang installed on your system.
+
+2. Download the provided code files: index-template.html, report-template.html, index.go, and report.go.
+
+3. Modify the code as per your requirements if needed, such as updating the HTML templates or making adjustments to the report generation logic.
+
+4. Build the code using the `go build` command.
+
+5. Set up an S3 bucket where you want to store the generated reports. Make sure you have the necessary credentials and access keys to upload files to the bucket.
+
+6. Configure the S3 bucket credentials in the code. You can use an environment variable or directly provide the access key and secret key in the code.
+
+7. Run the program. This will generate the index page with the report history table and upload it to the S3 bucket.
+
+8. Whenever you want to generate a new report, execute the generate function by passing the Ginkgo JSON report as input. This function will generate the report page and upload it to the S3 bucket. The index page will automatically update to include the new report in the history table.
+
+9. Share the S3 bucket URL with people who need access to the reports. They can navigate through the index page to view the report history and click on a specific report to see the detailed information.
+
+Remember to provide proper documentation for the usage and setup of this implementation to ensure that others can easily understand and utilize it.
+
+
+
+
+Certainly! Here are the explanations for the functions from `report.go` and `index.go`:
+
+In `report.go`:
+
+1. **func Generate(reportFileLocation string) error**
+   - This function is responsible for generating a detailed report in HTML format.
+   - Parameters:
+     - `reportFileLocation`: The file location of the Ginkgo JSON report.
+   - Returns:
+     - An error if there is any issue during the report generation process.
+   - Description:
+     - The `Generate` function takes the file location of the Ginkgo JSON report as input.
+     - It processes the report data and generates a detailed report in HTML format.
+     - The report includes information such as pass/fail status, test case descriptions, and error messages for failed tests.
+     - The generated report is then saved in HTML format, typically with a `.html` extension.
+
+In `index.go`:
+
+2. **func IndexGenerate(reportFolderPath string) error**
+   - This function is responsible for generating the report history HTML file.
+   - Parameters:
+     - `reportFolderPath`: The folder path where the generated reports are stored.
+   - Returns:
+     - An error if there is any issue during the report history generation process.
+   - Description:
+     - The `IndexGenerate` function takes the folder path where the generated reports are stored as input.
+     - It scans the specified folder for the report files and collects the necessary information for the report history table.
+     - The function then generates an HTML file that displays the report history, including links to the individual reports.
+     - The generated report history file can be used as an index page to navigate and access the detailed reports.
+
+These functions are crucial for generating the reports and the report history page. They work together to provide a comprehensive view of the test results and allow users to easily navigate through the reports.
+
+Make sure to provide proper documentation for these functions, including their parameters, return values, and descriptions. This will help users understand how to use them effectively in their workflow.
